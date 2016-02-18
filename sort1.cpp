@@ -95,11 +95,12 @@ void sort(fstream& tape, int& length, int& lastValue, int& highValue,
 		cout << "Sorted Index: " << sortedIndex << endl;
 		for(int i = 0; i < sortedIndex - 1; i++)
 		{	
-			if(i == swapIndex || swapIndex == 0)
+			if(i == swapIndex)
 			{
 				write(tape, lastValue, calcTotal);
 				cout << "Write Swap: " << lastValue << endl;
 				i++;
+				index++;
 				if(lastValue > highValue)
 				{
 					highValue = lastValue;
