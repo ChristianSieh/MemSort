@@ -11,12 +11,13 @@ CC = g++
 FLAGS = -g -std=c++11 -Wall
 
 # the build target executable:
-TARGET = make_array tape_sort sort1
+TARGET = make_array2 tape_sort
+TARGET2 = make_array2 sort1
 
-all: $(TARGET)
+all: $(TARGET) $(TARGET2)
 
 # specific targets
-make_array:	make_array.cpp
+make_array:	make_array2.cpp
 		$(CC) $(FLAGS) -o $@ $? $(LIBS) -lm
 
 tape_sort:	tape_sort.cpp
@@ -25,8 +26,8 @@ tape_sort:	tape_sort.cpp
 sort1:		sort1.cpp
 		$(CC) $(FLAGS) -o $@ $? $(LIBS) -lm
 
-debugging:	sort1.cpp
-		$(CC) $(FLAGS) -DDEBUG -o sort1 $? $(LIBS) -lm
+debugging:	tape_sort.cpp
+		$(CC) $(FLAGS) -DDEBUG -o tape_sort $? $(LIBS) -lm
 
 # utility targets
 clean:
