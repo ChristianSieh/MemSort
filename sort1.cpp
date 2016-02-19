@@ -88,49 +88,58 @@ void sort(fstream& tape, int& length, int& lastValue, int& highValue,
 	int sortedIndex = length;
 	int index = 0;
 	int swapIndex = highIndex;
+
 	
 	while(sortedIndex != 0)
 	{
 		int temp = 0;
+		int nextHigh = 0;
+		int nextIndex;
+
 		cout << "Sorted Index: " << sortedIndex << endl;
 		for(int i = 0; i < sortedIndex - 1; i++)
 		{	
+			cout << "Index: " << index << endl;
 			if(i == swapIndex)
 			{
 				write(tape, lastValue, calcTotal);
 				cout << "Write Swap: " << lastValue << endl;
-				i++;
-				index++;
-				if(lastValue > highValue)
+				cout << "Swap Index: " << swapIndex << endl;
+				//i++;
+				//index++;
+				if(lastValue > nextHigh)
 				{
-					highValue = lastValue;
-					highIndex = swapIndex;
+					nextHigh = lastValue;
+					nextIndex = swapIndex;
 				}
 			}
-
-
+			else
+			{
 			temp = read(tape, calcTotal);
 			cout << "Read Value: " << temp << endl;
-
-			if(temp > highValue)
+			}
+			if(temp > nextHigh)
 			{
-				highValue = temp;
-				cout << "High Value: " << highValue << endl;
-				highIndex = index;
-				cout << "High Index: " << highIndex << endl;
-			}		
-			
+				nextHigh = temp;
+				cout << "Next High: " << nextHigh << endl;
+				nextIndex = index;
+				cout << "Next Index: " << nextIndex << endl;
+			}	
 			index++;
 		}
 	
-		lastValue = temp;
-		swapIndex = highIndex;
-		cout << "Last Value: " << lastValue << endl;
 		cout << "Write High Value: " << highValue << endl;
+		cout << "Write Index: " << index << endl;
 		write(tape, highValue, calcTotal);
 
-		highValue = 0;
-		highIndex = -1;
+		if(swapIndex != sortedIndex - 2)
+		{
+			lastValue = temp;
+		}
+		cout << "Last Value: " << lastValue << endl;
+		highValue = nextHigh;
+		swapIndex = nextIndex;
+
 		sortedIndex--;		
 
 		rewind(tape, arg, calcTotal, index);
