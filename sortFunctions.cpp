@@ -1,5 +1,54 @@
 #include "sortFunctions.h"
 
+void splitTape(fstream& tape, fstream& tape2, fstream& tape3, 
+	char *arg, int& calcTotal)
+{
+	int temp;
+	int tapeSwitch = 0;
+	int length = 0;
+
+	while(!tape.eof())
+	{
+		temp = read(tape, calcTotal);
+		length++;
+		if(!tape.eof())
+		{
+			if(tapeSwitch % 2 == 0)
+			{
+				write(tape2, temp, calcTotal);
+			}
+			else
+			{
+				write(tape3, temp, calcTotal);
+			}
+			tapeSwitch++;
+		}	
+	}
+
+	rewind(tape, arg, calcTotal, length);
+}
+
+void combineTape(fstream& tape, fstream& tape2, fstream& tape3,
+	char* arg, int& calcTotal, int length)
+{
+	int temp2 = read(tape2, calcTotal);
+	int temp3 = read(tape3, calcTotal);
+
+	for(int i = 0; i < length * 2; i++)
+	{
+		if(temp2 < temp3)
+		{
+			write(tape, temp2, calcTotal);
+			temp2 = read(tape2, calcTotal);
+		}		
+		else
+		{
+			write(tape, temp3, calcTotal);
+			temp3 = read(tape3, calcTotal);
+		}
+	}	
+}
+
 void firstPass(fstream& tape, int& length, int& lastValue, int& highValue, 
 	int& highIndex, int& calcTotal, char *arg)
 {
@@ -97,7 +146,6 @@ void sort(fstream& tape, int& length, int& lastValue, int& highValue,
 		rewind(tape, arg, calcTotal, index);
 
 	}
-		wholeTape(tape, length, calcTotal, index, arg);		
 }
 
 void wholeTape(fstream& tape, int& length, int& calcTotal, int& index, char* arg)

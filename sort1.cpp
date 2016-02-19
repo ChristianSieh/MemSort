@@ -20,6 +20,8 @@ int main( int argc, char * argv[])
 
 	sort(tape, length, lastValue, highValue, highIndex, calcTotal, argv[1]);
 
+	wholeTape(tape, length, calcTotal, lastValue, argv[1]);
+
 	cout << "Calculation Total: " << calcTotal << endl;
 
 	tape.close();
