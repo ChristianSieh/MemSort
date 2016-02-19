@@ -1,9 +1,6 @@
-#include <iostream>
-#include <vector>
+#include "sortFunctions.h"
 
-using namespace std;
-
-void main(int argc, char * argv[])
+int main(int argc, char * argv[])
 {
 
 }
